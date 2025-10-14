@@ -30,7 +30,7 @@ const Pokemon = () => {
   return (
     <FlashList
       key={isGrid ? 'Grid' : 'List'}
-      contentContainerStyle={{ backgroundColor: colors.white }}
+      contentContainerStyle={{ backgroundColor: colors.background }}
       bounces={false}
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={
@@ -46,7 +46,7 @@ const Pokemon = () => {
           <PokemonListItem item={item} />
         )
       }
-      // ItemSeparatorComponent={!isGrid ? ItemSeparatorcomponent : undefined}
+      ItemSeparatorComponent={!isGrid ? ItemSeparatorcomponent : undefined}
     />
   );
 };

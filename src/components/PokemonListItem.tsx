@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: width,
     alignItems: 'center',
-    height:height/10, borderWidth:1
+    height:height/10,
   },
   image: {
     width: size.image,

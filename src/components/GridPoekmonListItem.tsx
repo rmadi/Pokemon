@@ -31,16 +31,25 @@ export default GridPoekmonListItem;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: colors.grey,
     margin: gap,
     borderRadius: size.default,
-    backgroundColor:colors.background
+    backgroundColor: colors.white,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
   },
   image: { width: width / 3, aspectRatio: 1 },
   pokemonTitle: {
     fontSize: size.md,
     textAlign: 'center',
-    fontWeight:'bold'
+    fontWeight: 'bold',
   },
 });
