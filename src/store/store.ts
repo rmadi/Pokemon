@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
 const persisteConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whileList: [],
+  whileList: [PokemonApi.reducerPath],
 };
 
 const persistedReducer = persistReducer(persisteConfig, rootReducer);

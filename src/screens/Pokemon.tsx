@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import Fallback from '../components/Fallback';
 import { FlashList } from '@shopify/flash-list';
 
@@ -7,6 +7,8 @@ import { useGetPokemonListQuery } from '../store/features/pokemonApi';
 import PokemonListItem from '../components/PokemonListItem';
 import PokemonListHeaderComponent from '../components/PokemonListHeaderComponent';
 import ItemSeparatorcomponent from '../components/ItemSeparatorcomponent';
+import GridPoekmonListItem from '../components/GridPoekmonListItem';
+import { colors } from '../utils';
 
 const Pokemon = () => {
   const {
@@ -14,9 +16,9 @@ const Pokemon = () => {
     error,
     isLoading,
     isError,
-  } = useGetPokemonListQuery({ limit: 10, offset: 0 });
-  console.log('error:', error);
-  console.log('isLoading:', isLoading);
+  } = useGetPokemonListQuery({ limit: 12, offset: 0 });
+  const [isGrid, setIsGrid] = useState(false);
+  console.log('isGrid:', isGrid);
 
   if (isLoading) return <Fallback />;
   if (isError)
@@ -27,13 +29,24 @@ const Pokemon = () => {
     );
   return (
     <FlashList
+      key={isGrid ? 'Grid' : 'List'}
+      contentContainerStyle={{ backgroundColor: colors.white }}
       bounces={false}
       showsVerticalScrollIndicator={false}
-      ListHeaderComponent={PokemonListHeaderComponent}
+      ListHeaderComponent={
+        <PokemonListHeaderComponent isGrid={isGrid} setIsGrid={setIsGrid} />
+      }
+      keyExtractor={(item, index) => item.name + index.toString()}
+      numColumns={isGrid ? 3 : 1}
       data={pokemon?.results}
-      renderItem={({ item }) => <PokemonListItem item={item} />}
-      ItemSeparatorComponent={ItemSeparatorcomponent}
-      onEndReached={}
+      renderItem={({ item }) =>
+        isGrid ? (
+          <GridPoekmonListItem item={item} />
+        ) : (
+          <PokemonListItem item={item} />
+        )
+      }
+      // ItemSeparatorComponent={!isGrid ? ItemSeparatorcomponent : undefined}
     />
   );
 };

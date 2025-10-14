@@ -7,6 +7,9 @@ export const PokemonApi = createApi({
   reducerPath: 'PokemonApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_API }),
   tagTypes: ['Pokemon'],
+  keepUnusedDataFor: 1500,
+  refetchOnReconnect: true,
+
   endpoints: builder => ({
     // fetch pokmeon list by limit and offset
     getPokemonList: builder.query<

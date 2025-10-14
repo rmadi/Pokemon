@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import React from 'react';
 import { height, size, width } from '../utils';
 import { PokemonListItemPrpos } from '../type/pokemonResponseTypes';
@@ -11,16 +11,18 @@ const PokemonListItem = ({ item }: Props) => {
   const id = getPokemonId(item.url);
 
   const imageUri = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-
+const handleNavigation= ()=> {
+console.log("navigation to" , id)
+}
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={handleNavigation}>
       <Image
         source={{ uri: imageUri }}
         style={styles.image}
         resizeMode="contain"
       />
       <Text>{item.name} </Text>
-    </View>
+    </Pressable>
   );
 };
 
@@ -31,6 +33,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: width,
     alignItems: 'center',
+    height:height/10, borderWidth:1
   },
   image: {
     width: size.image,

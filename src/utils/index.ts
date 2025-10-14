@@ -12,22 +12,21 @@ const size = {
   xlg: 24,
   xxlg: 30,
   xxxlg: 39,
-  image:70
+  image: 70,
 };
 
 const colors = {
-  primary: '#83B011',
-  secondary: '#0078C6',
-  white: '#fff',
-  black: '#141414',
-  grey: '#D1D1D1',
-  border: '#DEF4F8',
-  label: '#5A5D64',
-  error: '#FF0000',
+  primary: '#3C5AA6',
+  secondary: '#FFCB05',
+  accent: '#E3350D',
+  background: '#F5F5F5',
+  text: '#2D2D2D',
+  grey: '#D3D3D3',
+  white: '~#ffffff',
 };
 export const guidelineBaseWidth = 375;
 export const guidelineBaseHeight = 812;
-export const gap = 10;
+export const gap = 5;
 
 const horizontalScale = (x: number) => (width / guidelineBaseWidth) * x;
 const verticalScale = (x: number) => (height / guidelineBaseHeight) * x;

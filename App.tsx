@@ -13,6 +13,7 @@ import { persistor, store } from './src/store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Fallback from './src/components/Fallback';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { colors } from './src/utils';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -25,6 +26,9 @@ function App() {
             <SafeAreaView style={{ flex: 1 }}>
               <StatusBar
                 barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+                backgroundColor={colors.white}
+                animated
+                translucent
               />
               <Navigation />
             </SafeAreaView>
