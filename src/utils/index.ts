@@ -12,6 +12,7 @@ const size = {
   xlg: 24,
   xxlg: 30,
   xxxlg: 39,
+  image:70
 };
 
 const colors = {
