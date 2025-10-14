@@ -14,7 +14,7 @@ export const PokemonApi = createApi({
       { limit?: number; offset?: number }
     >({
       query: ({ limit = 10, offset = 0 }) =>
-        `/&limit=${limit}&offset=${offset}`,
+        `pokemon?limit=${limit}&offset=${offset}`,
     }),
     getPokemonByName: builder.query<any, string>({
       query: name => `pokemon/${name}`,

@@ -1,1 +1,1 @@
-export const BASE_API = "https://pokeapi.co/api/v2/pokemon"
+export const BASE_API = 'https://pokeapi.co/api/v2/'
