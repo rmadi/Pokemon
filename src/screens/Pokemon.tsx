@@ -7,7 +7,7 @@ import PokemonListItem from '../components/PokemonListItem';
 import PokemonListHeaderComponent from '../components/PokemonListHeaderComponent';
 import ItemSeparatorcomponent from '../components/ItemSeparatorcomponent';
 import GridPoekmonListItem from '../components/GridPoekmonListItem';
-import { colors, LIMIT, size } from '../utils';
+import { colors, LIMIT } from '../utils';
 import { PokemonListItemPrpos } from '../type/pokemonResponseTypes';
 import LoadingMorePokemon from '../components/LoadingMorePokemon';
 import ErrorFetch from '../components/ErrorFetch';
@@ -28,6 +28,7 @@ const Pokemon = () => {
   const [pokemonList, setPokemonList] = useState<PokemonListItemPrpos[]>([]);
 
   useEffect(() => {
+
     if (pokemon?.results) {
       if (offset === 0) {
         setPokemonList(pokemon.results);
@@ -35,7 +36,8 @@ const Pokemon = () => {
         setPokemonList(prev => [...prev, ...pokemon.results]);
       }
     }
-  }, [pokemon]);
+
+  }, [pokemon, offset]);
 
   const loadMorePokemon = () => {
     if (!isFetching && pokemon?.results?.length === LIMIT) {
@@ -64,7 +66,7 @@ const Pokemon = () => {
           onRefresh={handleRefresh}
           tintColor="transparent"
           colors={['transparent']}
-          style={{ backgroundColor: 'transparent' }}
+          style={styles.refreshControl}
           progressViewOffset={50}
         />
       }
@@ -99,4 +101,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     paddingBottom: 50,
   },
+   refreshControl:{ backgroundColor: 'transparent' }
 });

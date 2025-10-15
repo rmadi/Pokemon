@@ -14,7 +14,7 @@ const ErrorFetch = () => {
         <LottieView
           autoPlay
           source={require('../../assets/animation/NoData.json')}
-          style={{ width: 150, height: 150, backgroundColor: colors.white }}
+          style={styles.lottie}
         />
         <Text style={styles.text}>
           {' '}
@@ -46,4 +46,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingHorizontal: horizontalScale(size.md),
   },
+  lottie:{ width: 150, height: 150, backgroundColor: colors.white }
 });

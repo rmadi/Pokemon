@@ -5,7 +5,7 @@
  * @format
  */
 
-import { StatusBar, useColorScheme } from 'react-native';
+import { StatusBar, useColorScheme , StyleSheet} from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Navigation from './src/navigation/Navigation';
 import { Provider } from 'react-redux';
@@ -13,7 +13,6 @@ import { persistor, store } from './src/store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Fallback from './src/components/Fallback';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { colors } from './src/utils';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -21,9 +20,9 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={<Fallback />} persistor={persistor}>
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView style={styles.container}>
           <SafeAreaProvider>
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView style={styles.container}>
               <StatusBar
                 barStyle={isDarkMode ? 'light-content' : 'dark-content'}
                 animated
@@ -37,5 +36,7 @@ function App() {
     </Provider>
   );
 }
-
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+});
 export default App;

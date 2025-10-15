@@ -10,19 +10,33 @@
     "start:dev": "cross-env BASE_API_URL=https://pokeapi.co/api/v2 react-native start",
     "android:dev": "cross-env BASE_API_URL=https://pokeapi.co/api/v2 react-native run-android",
     "ios:dev": "cross-env BASE_API_URL=https://pokeapi.co/api/v2 react-native run-ios",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
- "jest": {
-  "preset": "react-native",
-  "setupFilesAfterEnv": ["<rootDir>/src/jest.setup.ts"],
-  "transformIgnorePatterns": [
-    "node_modules/(?!(@react-native|react-native|@react-navigation|@shopify/flash-list|lottie-react-native|react-native-sound|@reduxjs/toolkit|immer)/)"
-  ],
-  "setupFiles": ["<rootDir>/node_modules/react-native-gesture-handler/jestSetup.js"],
-  "moduleNameMapper": {
-    "^@env$": "<rootDir>/__mocks__/@env.js"
-  }
-},
+  "jest": {
+    "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/jest.setup.ts"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@react-native|react-native|@react-navigation|@shopify/flash-list|lottie-react-native|react-native-sound|@reduxjs/toolkit|immer)/)"
+    ],
+    "setupFiles": [
+      "<rootDir>/node_modules/react-native-gesture-handler/jestSetup.js"
+    ],
+    "moduleNameMapper": {
+      "^@env$": "<rootDir>/__mocks__/@env.js"
+    },
+    "coverageThreshold": {
+      "global": {
+        "branches": 40,
+        "functions": 60,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native-community/netinfo": "^9.5.0",

@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useRef } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import Sound from 'react-native-sound';
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 6 },
   },
   artwork: {
-    width: horizontalScale(size.xxxlg * 6), // ~220 using your scale/tokens
+    width: horizontalScale(size.xxxlg * 6), 
     height: horizontalScale(size.xxxlg * 6),
   },
 });

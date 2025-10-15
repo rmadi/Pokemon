@@ -1,5 +1,5 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import React, { useLayoutEffect, useRef } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import React, { useLayoutEffect } from 'react';
 import {
   NavigationProp,
   useNavigation,
@@ -13,6 +13,8 @@ import {
   useGetPokemonByIdQuery,
   useGetPokemonSpeciesQuery,
 } from '../store/features/pokemonApi';
+import HeaderRightBadge from '../components/PokemonDetails/HeaderRightBadge';
+
 import { formatPokemonId } from '../utils/getPokmeonIdFromUri';
 import {
   colors,
@@ -38,11 +40,8 @@ const PokemonDetail = () => {
     isLoading,
     isError,
   } = useGetPokemonByIdQuery(pokemonId);
-  const {
-    data: species,
-    isLoading: isLoadingSpecies,
-    isError: isErrorSpices,
-  } = useGetPokemonSpeciesQuery(pokemonId);
+  const { data: species, isError: isErrorSpices } =
+    useGetPokemonSpeciesQuery(pokemonId);
 
   const colorName = species?.color?.name ?? colors.white;
   const bgColor = speciesColor[colorName] ?? colors.white;
@@ -56,10 +55,10 @@ const PokemonDetail = () => {
     pokemon?.sprites?.front_default ??
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
 
-
   useLayoutEffect(() => {
     if (!pokemon) return;
     navigation.setOptions({
+      /* eslint react/no-unstable-nested-components: ["error", { "allowAsProps": true }] */
       headerShown: true,
       title: pokemon.name[0].toUpperCase() + pokemon.name.slice(1),
       headerStyle: { backgroundColor: bgColor },
@@ -67,25 +66,19 @@ const PokemonDetail = () => {
       headerTitleStyle: { fontWeight: 'bold' },
       headerShadowVisible: false,
       headerRight: () => (
-        <View style={{ paddingHorizontal: horizontalScale(size.l) }}>
-          <Text style={{ fontWeight: 'bold', color: tintColor }}>
-            {formatPokemonId(pokemonId.toString())}
-          </Text>
-        </View>
+        <HeaderRightBadge
+          idText={formatPokemonId(pokemonId.toString())}
+          color={tintColor}
+        />
       ),
     });
-  }, [navigation, pokemon?.name, bgColor, tintColor, pokemonId]);
-
-
-
+  }, [navigation, pokemon, bgColor, tintColor, pokemonId]);
 
   if (isLoading) return <Fallback />;
   if (isError || isErrorSpices) return <ErrorFetch />;
 
-  
   return (
     <ScrollView style={styles.container}>
-
       <PokemonHeader item={{ bgColor, imageUri, soundUri }} />
 
       <View style={styles.contentCard}>
@@ -115,6 +108,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
+  headerRightWrap: { paddingHorizontal: horizontalScale(size.l) },
+  headerRightText: { fontWeight: 'bold' },
   artworkWrap: {
     position: 'absolute',
     bottom: -90,

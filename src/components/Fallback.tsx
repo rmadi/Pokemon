@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet,  View } from 'react-native';
 import React from 'react';
 import LottieView from 'lottie-react-native';
 import { colors } from '../utils';
@@ -9,7 +9,7 @@ const Fallback = () => {
       <LottieView
         autoPlay
         source={require('../../assets/animation/Pikachu.json')}
-        style={{ width: 200, height: 200, backgroundColor: colors.white }}
+        style={styles.lottie}
       />
     </View>
   );
@@ -24,4 +24,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor:colors.white
   },
+  lottie: { width: 200, height: 200 }
 });
