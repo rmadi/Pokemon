@@ -1,8 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Fallback from '../components/Fallback';
 import { FlashList } from '@shopify/flash-list';
-
 import { useGetPokemonListQuery } from '../store/features/pokemonApi';
 import PokemonListItem from '../components/PokemonListItem';
 import PokemonListHeaderComponent from '../components/PokemonListHeaderComponent';
@@ -12,13 +11,13 @@ import { colors, LIMIT, size } from '../utils';
 import { PokemonListItemPrpos } from '../type/pokemonResponseTypes';
 import LoadingMorePokemon from '../components/LoadingMorePokemon';
 import ErrorFetch from '../components/ErrorFetch';
+import ListEmpty from '../components/ListEmpty';
 
 const Pokemon = () => {
   const [offset, setOffset] = useState<number>(0);
 
   const {
     data: pokemon,
-
     isLoading,
     isError,
     isFetching,
@@ -44,7 +43,7 @@ const Pokemon = () => {
   };
 
   if (isLoading) return <Fallback />;
-  if (isError) return <ErrorFetch /> 
+  if (isError) return <ErrorFetch />;
   return (
     <FlashList
       key={isGrid ? 'Grid' : 'List'}
@@ -64,6 +63,7 @@ const Pokemon = () => {
           <PokemonListItem item={item} />
         )
       }
+      ListEmptyComponent={ListEmpty}
       ItemSeparatorComponent={!isGrid ? ItemSeparatorcomponent : undefined}
       onEndReached={loadMorePokemon}
       onEndReachedThreshold={0.1}
