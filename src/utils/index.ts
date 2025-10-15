@@ -23,11 +23,12 @@ const colors = {
   text: '#2D2D2D',
   grey: '#D3D3D3',
   white: '~#ffffff',
+  black:'#000'
 };
 export const guidelineBaseWidth = 375;
 export const guidelineBaseHeight = 812;
 export const gap = 5;
-
+export  const LIMIT = 12;
 const horizontalScale = (x: number) => (width / guidelineBaseWidth) * x;
 const verticalScale = (x: number) => (height / guidelineBaseHeight) * x;
 const moderateScale = (x: number, factor = 0.5) =>

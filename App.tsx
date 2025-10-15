@@ -26,7 +26,6 @@ function App() {
             <SafeAreaView style={{ flex: 1 }}>
               <StatusBar
                 barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-                backgroundColor={colors.white}
                 animated
                 translucent
               />

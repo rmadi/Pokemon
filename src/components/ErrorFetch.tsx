@@ -1,22 +1,49 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { colors } from '../utils'
+import { StyleSheet, Text, View, Image } from 'react-native';
+import React from 'react';
+import LottieView from 'lottie-react-native';
+import { colors, horizontalScale, size, width } from '../utils';
 
 const ErrorFetch = () => {
   return (
-    <View>
-      <Text>ErrorFetch</Text>
+    <View style={styles.container}>
+      <Image
+        source={require('../../assets/images/pokemonTitle.png')}
+        style={styles.image}
+      />
+      <View style={styles.noDatawrapper}>
+        <LottieView
+          autoPlay
+          source={require('../../assets/animation/NoData.json')}
+          style={{ width: 150, height: 150, backgroundColor: colors.white }}
+        />
+        <Text style={styles.text}>
+          {' '}
+          Oops! Something went wrong while fetching Pokémon. Please try again
+          later.
+        </Text>
+      </View>
     </View>
-  )
-}
+  );
+};
 
-export default ErrorFetch
+export default ErrorFetch;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.white,
+  },
+  image: { width: width / 1.1, height: 120 },
+  noDatawrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:colors.white
+    flex: 0.5,
   },
-})
+  text: {
+    fontSize: size.mmd,
+    color: colors.accent,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingHorizontal: horizontalScale(size.md),
+  },
+});

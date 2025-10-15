@@ -31,11 +31,11 @@ export default GridPoekmonListItem;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 0.5,
+    borderWidth: 1,
     borderColor: colors.grey,
     margin: gap,
     borderRadius: size.default,
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
