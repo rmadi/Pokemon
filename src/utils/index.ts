@@ -19,12 +19,26 @@ const colors = {
   primary: '#3C5AA6',
   secondary: '#FFCB05',
   accent: '#E3350D',
-  background: '#F5F5F5',
+  background: '#f5f7fa',
   text: '#2D2D2D',
   grey: '#D3D3D3',
-  white: '~#ffffff',
-  black:'#000'
+  white: '#f0f3f9',
+  black:'#000',
+  
 };
+  export const speciesColor: Record<string, string> = {
+  black:  '#3c3c3c',
+  blue:   '#77BDFE',
+  brown:  '#B1736C',
+  gray:   '#A0A0A0',
+  green:  '#48D0B0',
+  pink:   '#F4A4C7',
+  purple: '#9B6DF0',
+  red:    '#FB6C6C',
+  white:  '#F5F7FA',
+  yellow: '#FFD76F',
+};
+
 export const guidelineBaseWidth = 375;
 export const guidelineBaseHeight = 812;
 export const gap = 5;

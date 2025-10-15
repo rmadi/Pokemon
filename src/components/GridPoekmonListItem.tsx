@@ -1,28 +1,43 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { PokemonListItemPrpos } from '../type/pokemonResponseTypes';
-import { getPokemonId } from '../utils/getPokmeonIdFromUri';
-import { colors, gap, size, width } from '../utils';
+import { formatPokemonId, getPokemonId } from '../utils/getPokmeonIdFromUri';
+import {
+  colors,
+  gap,
+  horizontalScale,
+  size,
+  verticalScale,
+  width,
+} from '../utils';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../type/navigationTypes';
 type Props = {
   item: PokemonListItemPrpos;
 };
 const GridPoekmonListItem = ({ item }: Props) => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>()
   const id = getPokemonId(item.url);
 
   const imageUri = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-
+  const pokemonId = formatPokemonId(id.toString());
   const handleNavigation = () => {
-    console.log('navigation to', id);
+    navigation.navigate('PokemonDetail', {pokemonId:id })
   };
 
   return (
     <TouchableOpacity style={styles.container} onPress={handleNavigation}>
+      <View style={styles.showId}>
+        <Text style={styles.idText}>{pokemonId}</Text>
+      </View>
       <Image
         source={{ uri: imageUri }}
         style={styles.image}
         resizeMode="contain"
       />
-      <Text style={styles.pokemonTitle}>{item.name}</Text>
+      <Text style={styles.pokemonTitle}>
+        {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -51,5 +66,16 @@ const styles = StyleSheet.create({
     fontSize: size.md,
     textAlign: 'center',
     fontWeight: 'bold',
+    backgroundColor: 'rgba(0,0,0,0.1)',
+  },
+  showId: {
+    backgroundColor: colors.secondary,
+    paddingHorizontal: horizontalScale(size.lx),
+    paddingVertical: verticalScale(size.l),
+  },
+  idText: {
+    fontSize: size.default,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

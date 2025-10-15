@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { colors, size } from '../utils';
+import { colors, horizontalScale, size } from '../utils';
 
 const ListEmpty = () => {
   return (
@@ -21,5 +21,6 @@ const styles = StyleSheet.create({
     color: colors.primary,
     textAlign: 'center',
     fontWeight: '600',
+    paddingHorizontal: horizontalScale(size.md)
   },
 });

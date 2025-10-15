@@ -14,7 +14,7 @@ export default ItemSeparatorcomponent;
 const styles = StyleSheet.create({
   separatorLine: {
     height: 1,
-    backgroundColor: colors.grey,
+    backgroundColor: colors.primary,
     justifyContent: 'center',
     alignSelf: 'center',
     width:'90%'

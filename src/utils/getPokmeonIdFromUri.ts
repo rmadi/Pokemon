@@ -3,3 +3,8 @@ export const getPokemonId = (uri: string) => {
 
   return findId[findId.length - 1];
 };
+
+export const formatPokemonId = (id: string): string => {
+  const result = id.padStart(3,"0")
+  return `#${result}`;
+};

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { BASE_API } from '../../utils/baseUrl';
-import { PokemonListResponse } from '../../type/pokemonResponseTypes';
+import { Pokemon, PokemonListResponse, PokemonSpecies } from '../../type/pokemonResponseTypes';
 
 export const PokemonApi = createApi({
   reducerPath: 'PokemonApi',
@@ -16,17 +16,30 @@ export const PokemonApi = createApi({
       PokemonListResponse,
       { limit?: number; offset?: number }
     >({
-      onQueryStarted: async ({ limit, offset }, { queryFulfilled }) => {
-        console.log('offset:', offset);
-        console.log('limit:', limit);
-      },
+      // onQueryStarted: async ({ limit, offset }, { queryFulfilled }) => {
+      //   console.log('offset:', offset);
+      //   console.log('limit:', limit);
+      // },
       query: ({ limit, offset }) => `pokemon?limit=${limit}&offset=${offset}`,
     }),
-    getPokemonByName: builder.query<any, string>({
-      query: name => `pokemon/${name}`,
+    getPokemonById: builder.query<Pokemon, string | number>({
+      query: pokemonId => `pokemon/${pokemonId}`,
+      async onQueryStarted(pokemonId, { queryFulfilled }) {
+        console.log('[getPokemonByName] arg:', pokemonId);
+        try {
+          const { data } = await queryFulfilled;
+          console.log('[getPokemonByName] data:', data);
+        } catch (err) {
+          console.log('[getPokemonByName] error:', err);
+        }
+      },
+    }),
+
+      getPokemonSpecies: builder.query<PokemonSpecies, string|number>({
+      query: (idOrName) => `pokemon-species/${idOrName}`,
     }),
   }),
+  
 });
 
-export const { useGetPokemonListQuery, useLazyGetPokemonByNameQuery } =
-  PokemonApi;
+export const { useGetPokemonListQuery, useGetPokemonByIdQuery, useGetPokemonSpeciesQuery } = PokemonApi;

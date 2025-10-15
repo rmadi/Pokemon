@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, RefreshControl } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Fallback from '../components/Fallback';
 import { FlashList } from '@shopify/flash-list';
@@ -15,12 +15,14 @@ import ListEmpty from '../components/ListEmpty';
 
 const Pokemon = () => {
   const [offset, setOffset] = useState<number>(0);
+  const [refreshing, setRefreshing] = useState(false);
 
   const {
     data: pokemon,
     isLoading,
     isError,
     isFetching,
+    refetch,
   } = useGetPokemonListQuery({ limit: LIMIT, offset });
   const [isGrid, setIsGrid] = useState(true);
   const [pokemonList, setPokemonList] = useState<PokemonListItemPrpos[]>([]);
@@ -36,20 +38,36 @@ const Pokemon = () => {
   }, [pokemon]);
 
   const loadMorePokemon = () => {
-    console.log('onEndReach');
     if (!isFetching && pokemon?.results?.length === LIMIT) {
       setOffset(prev => prev + LIMIT);
     }
   };
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    setOffset(0);
+    await refetch();
+    setRefreshing(false);
+  };
 
   if (isLoading) return <Fallback />;
   if (isError) return <ErrorFetch />;
+
   return (
     <FlashList
       key={isGrid ? 'Grid' : 'List'}
       contentContainerStyle={styles.container}
-      bounces={false}
+      bounces={true}
       showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
+          tintColor="transparent"
+          colors={['transparent']}
+          style={{ backgroundColor: 'transparent' }}
+          progressViewOffset={50}
+        />
+      }
       ListHeaderComponent={
         <PokemonListHeaderComponent isGrid={isGrid} setIsGrid={setIsGrid} />
       }
@@ -63,12 +81,12 @@ const Pokemon = () => {
           <PokemonListItem item={item} />
         )
       }
-      ListEmptyComponent={ListEmpty}
+      ListEmptyComponent={!refreshing ? ListEmpty : null}
       ItemSeparatorComponent={!isGrid ? ItemSeparatorcomponent : undefined}
       onEndReached={loadMorePokemon}
       onEndReachedThreshold={0.1}
       ListFooterComponent={
-        isFetching && offset !== 0 ? <LoadingMorePokemon /> : null
+        !isFetching && offset !== 0 ? <LoadingMorePokemon /> : null
       }
     />
   );
@@ -78,7 +96,7 @@ export default Pokemon;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.background,
-    paddingBottom: 100,
+    backgroundColor: colors.white,
+    paddingBottom: 50,
   },
 });

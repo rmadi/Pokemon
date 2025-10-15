@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
 const persisteConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whileList: [PokemonApi.reducerPath],
+  whileList: [],
 };
 
 const persistedReducer = persistReducer(persisteConfig, rootReducer);
@@ -29,10 +29,15 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
+            immutableCheck: { warnAfter: 200 },
+
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+         ignoredPaths: [PokemonApi.reducerPath],
       },
+      
     }).concat(PokemonApi.middleware),
+    devTools: __DEV__ && { trace: false },
 });
 setupListeners(store.dispatch);
 
