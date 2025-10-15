@@ -12,7 +12,9 @@
     "ios:dev": "cross-env BASE_API_URL=https://pokeapi.co/api/v2 react-native run-ios",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "typecheck": "tsc --noEmit",
+    "typewatch": "tsc --noEmit --watch"
   },
   "jest": {
     "preset": "react-native",
