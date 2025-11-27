@@ -328,3 +328,12 @@ This app is secured against: - MITM proxy attacks\
 
 > **Note:** iOS security features and native modules were not implemented because i dont't have macOS.  
 > All current security protections apply only to the Android version of the application.
+
+
+
+If you would like to merge the security branch into main, you can use the following commands:
+
+
+-- git checkout main
+-- git pull
+-- git merge security
