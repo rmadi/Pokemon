@@ -13,3 +13,16 @@ jest.mock('react-native-sound', () => {
 jest.mock('@env', () => ({
   BASE_API_URL: 'https://pokeapi.co/api/v2',
 }));
+
+jest.mock("react-native-bootsplash", () => {
+  return {
+    //@ts-ignore
+    hide: jest.fn().mockResolvedValue(),
+    isVisible: jest.fn().mockResolvedValue(false),
+    useHideAnimation: jest.fn().mockReturnValue({
+      container: {},
+      logo: { source: 0 },
+      brand: { source: 0 },
+    }),
+  };
+});
