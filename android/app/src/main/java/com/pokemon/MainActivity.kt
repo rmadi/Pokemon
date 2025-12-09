@@ -1,6 +1,7 @@
 package com.pokemon
 
-import android.os.Bundle                           
+import android.os.Bundle
+import android.view.WindowManager
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
@@ -17,11 +18,20 @@ class MainActivity : ReactActivity() {
   /**
    * ReactActivityDelegate with New Architecture support
    */
+  override fun onCreate(savedInstanceState: Bundle?) {
+        RNBootSplash.init(this, R.style.BootTheme)  
+    super.onCreate(savedInstanceState)
+
+    window.setFlags(
+      WindowManager.LayoutParams.FLAG_SECURE,
+      WindowManager.LayoutParams.FLAG_SECURE
+    )
+  }
+
+  override fun getMainComponentName(): String = "Pokemon"
+
   override fun createReactActivityDelegate(): ReactActivityDelegate =
       DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    RNBootSplash.init(this, R.style.BootTheme)   
-    super.onCreate(savedInstanceState)
-  }
+
 }
